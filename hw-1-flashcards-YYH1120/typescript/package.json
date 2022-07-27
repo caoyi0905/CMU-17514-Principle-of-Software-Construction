@@ -1,0 +1,27 @@
+{
+  "name": "hw1-flashcards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "lint": "ts-standard",
+    "start": "node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.4",
+    "ts-standard": "^10.0.0",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "@types/args": "^5.0.0",
+    "@types/commander": "^2.12.2",
+    "@types/node": "^16.7.4",
+    "args": "^5.0.1",
+    "commander": "^8.3.0",
+    "readline-sync": "^1.4.10",
+    "yargs": "^17.3.1"
+  }
+}
