@@ -1,0 +1,5 @@
+.idea/
+_static_template
+out/
+target/
+.DS_Store
