@@ -1,0 +1,58 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  push:
+
+  workflow_dispatch:
+
+jobs:
+  Check:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Checks-out Java
+      - uses: actions/setup-java@v2
+        with:
+          distribution: microsoft
+          java-version: 17
+
+      # Checks-out Node
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      # Identifies all relevant Java files that have been changed in the latest commit
+      - name: Change Java
+        uses: tj-actions/changed-files@v13.1
+        id: change-java
+        with:
+          files: |
+            pom.xml
+            **/*.java
+
+      # Identifies all relevant TS files that have been changed in latest commit
+      - name: Change TS
+        uses: tj-actions/changed-files@v13.1
+        id: change-ts
+        with:
+          files: |
+            **/*.ts
+            **/*.json
+
+      # Runs type checker for Java files
+      - name: Run on Java files
+        if: steps.change-java.outputs.any_changed == 'true'
+        run: |
+          timeout 2m mvn -f backend/pom.xml site
+
+      # Runs compiler and linter for TS files
+      - name: Run on TS files
+        if: steps.change-ts.outputs.any_changed == 'true'
+        run: |
+          timeout 2m npm install frontend/
+          timeout 2m npm run compile --prefix frontend/

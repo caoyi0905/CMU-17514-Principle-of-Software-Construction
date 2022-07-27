@@ -1,0 +1,172 @@
+/* Dropdown Button */
+#dropbtn {
+  width: 50px;
+  height: 5vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  float: left;
+  font-size: 2vw;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 40%;
+  height: 3vh;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  /* z-index: 1; */
+  text-align: center;
+  margin-left: 20%;
+  font-size: 20px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  font-size: 20px;
+  height: 3vh;
+  text-decoration: none;
+  display: block;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+#title {
+  height: 5vh;
+  background-color: rgb(66, 193, 248);
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  border: 1px solid black;
+  font-size: 30px;
+  line-height: 5vh;
+}
+
+#dataPlugin {
+  height: 28vh;
+  background-color: white;
+  padding: 10px;
+  margin: 0px;
+  text-align: center;
+  border: 1px solid black;
+  font-size: 20px;
+}
+
+#dataPlugin button {
+  width: 20vh;
+  height: 25px;
+  margin: 2px;
+  padding: 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#params {
+  height: 22vh;
+  background-color: white;
+  padding: 6px;
+  margin: 10px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+input[type="submit"] { 
+  width: 20vh;
+  height: 25px;
+  font-size: 18px;
+} 
+
+#visualPlugin {
+  height: 32vh;
+  background-color: white;
+  padding: 10px;
+  margin: 0px;
+  text-align: center;
+  /*border: 1px solid black;*/
+  font-size: 20px;
+}
+
+#visualPlugin button {
+  width: 25vh;
+  height: 25px;
+  margin: 2px;
+  padding: 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#info {
+  height: 11vh;
+  background-color: white;
+  padding: 6px;
+  margin: 10px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.mapButton {
+  width: 20vh;
+  height: 25px;
+  margin: 2px;
+  padding: 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#mapText {
+  height: 8vh;
+  background-color: white;
+  padding: 6px;
+  margin: 10px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+#map {
+  height: 100vh;
+  width: 60vw;
+  background-color: white;
+  padding: 6px;
+  margin: 0 auto;
+  text-align: center;
+  /* border: 1px solid black; */
+  /* border-radius: 10px; */
+}
+
+h1 {
+  width:500px;
+  margin: 0 auto;
+  background: white;
+  text-align: center;
+}
+
+#handlebars {
+  visibility: hidden;
+  display: none;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+}
+.playable { background-color: red;}

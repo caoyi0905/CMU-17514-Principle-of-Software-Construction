@@ -1,0 +1,6 @@
+# List of plugins to be registered by framework.
+# Provide fully qualified class names here ( org.antiantibug.framework.core.XXX ),
+# with one plugin per line.
+org.antiantibug.dataplugin.YoutubePlugin
+org.antiantibug.dataplugin.TwitterPlugin
+org.antiantibug.dataplugin.QueryPlugin
