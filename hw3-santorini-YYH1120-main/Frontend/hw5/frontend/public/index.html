@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <title>React App</title>
+    <title>Document</title>
+    <style>
+      a{ text-decoration:none} 
+    </style>
+  </head>
+  <body>
+
+
+
+    <div id="root">
+    </div>
+
+
+
+    <div id="handlebars">
+
+      <div id="instructions">
+        {{instructions}}
+      </div>
+
+      <div id="godinfo">
+        {{godinfo}}
+      </div>
+
+      <div class="board" id="board">
+        {{#each cells}}
+            {{#if link}}
+              <a href={{link}}><div class="cell {{clazz}}">{{text}}</div></a>
+            {{else}}
+              <div class="cell {{clazz}}">{{text}}</div>
+            {{/if}}
+          {{/each}}
+        
+      </div>
+
+      <div id="bottombar">
+        <a href="/newgame"><button>New Game</button></a>
+        <a href="/undo"><button>Undo</button></a>
+      </div>
+
+      <div class="god-message {{godtype}}" id="godMessage1">Choose Two Different Gods
+        <a href="/Pan"><button id="restartButton">Pan</button></a>
+        <a href="/Demeter"><button id="restartButton">Demeter</button></a>
+        <a href="/Minotaur"><button id="restartButton">Minotaur</button></a>
+      </div>
+
+
+      <div class="god-message {{mode}}" id="godMessage">Santorini
+        
+        <a href="/general"><button id="restartButton">General Mode</button></a>
+        <a href="/god"><button id="restartButton">God Mode</button></a>
+      </div>
+
+
+
+
+
+
+      
+    </div>
+
+
+
+
+
+
+
+    
+
+  </body>
+</html>

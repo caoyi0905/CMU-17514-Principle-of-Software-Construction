@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Worker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">token</a> &gt; <span class="el_source">Worker.java</span></div><h1>Worker.java</h1><pre class="source lang-java linenums">package token;
+
+import game.Game;
+import game.Player;
+import gameboard.IslandBoard;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="fc" id="L10">public class Worker extends Token {</span>
+    private Player parent;
+    private static final int MAXWIDTH = 7;
+    private static final int MAXHEIGHT = 3;
+
+
+    public int getMaxbuildtimes() {
+<span class="nc" id="L17">        return 1;</span>
+    }
+
+    public void setParent(Player player){
+<span class="fc" id="L21">        this.parent = player;</span>
+<span class="fc" id="L22">    }</span>
+    /**
+     * Get the name of the worker.
+     *
+     * @return The name of the worker.
+     */
+
+
+    public Player getParent() {
+<span class="fc" id="L31">        return parent;</span>
+    }
+
+    public Worker clone(){
+<span class="fc" id="L35">        Worker w = new Worker();</span>
+<span class="fc" id="L36">        w.setPosition(this.getX(), this.getY());</span>
+<span class="fc" id="L37">        w.setParent(this.parent);</span>
+
+<span class="fc" id="L39">        return w;</span>
+    }
+
+    public Game moveWorker(Game game,  int x, int y) {
+
+        int xsrc, xdes;
+        int ysrc, ydes;
+        int oldlevel, newlevel;
+
+<span class="fc" id="L48">        xsrc = this.getX();</span>
+<span class="fc" id="L49">        ysrc = this.getY();</span>
+
+<span class="fc" id="L51">        xdes = x;</span>
+<span class="fc" id="L52">        ydes = y;</span>
+<span class="fc" id="L53">        oldlevel = game.getBoard().getGrids().get(xsrc).get(ysrc).getLevel();</span>
+<span class="fc" id="L54">        newlevel = game.getBoard().getGrids().get(xdes).get(ydes).getLevel();</span>
+
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (game.getBoard().getGrids().get(xdes).get(ydes).getWorker().size() == 0) {</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">            if (newlevel &lt; MAXHEIGHT + 1) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">                if (newlevel &lt;= oldlevel + 1) {</span>
+
+<span class="fc" id="L60">                    List&lt;Game&gt; newHistory = new ArrayList&lt;&gt;(game.getHistory());</span>
+<span class="fc" id="L61">                    Game state = new Game(new IslandBoard(game.gridscloneformove(game.getBoard().getGrids())),game.getPlayer(),game.getHistory(),null,game.getMove(), game.getGod());</span>
+<span class="fc" id="L62">                    newHistory.add(state);</span>
+
+<span class="fc" id="L64">                    game.getBoard().getGrids(xsrc,ysrc).removeWorker();</span>
+<span class="fc" id="L65">                    game.getBoard().getGrids(xdes,ydes).moveWorker(this);</span>
+<span class="fc" id="L66">                    this.setPosition(xdes, ydes);</span>
+<span class="fc" id="L67">                    return new Game(game.getBoard(), game.getPlayer(), newHistory, game.getMoveworker(), game.getMove(), game.getGod());</span>
+                }
+            }
+        }
+
+<span class="fc" id="L72">        return game;</span>
+    }
+
+    public Game buildtoken( Game game, int x, int y) {
+<span class="fc" id="L76">        System.out.println(&quot;build&quot;);</span>
+
+        int xdes, ydes;
+
+<span class="fc" id="L80">        xdes = x;</span>
+<span class="fc" id="L81">        ydes = y;</span>
+
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (game.getBoard().getGrids().get(xdes).get(ydes).getWorker().size() == 0) {</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (game.getBoard().getGrids().get(xdes).get(ydes).getLevel() &lt;= MAXHEIGHT) {</span>
+
+<span class="fc" id="L86">                List&lt;Game&gt; newHistory = new ArrayList&lt;&gt;(game.getHistory());</span>
+<span class="fc" id="L87">                Game state = new Game(new IslandBoard(game.gridsclone(game.getBoard().getGrids())),game.getPlayer(),game.getHistory(), game.getMoveworker(), 1,game.getGod());</span>
+<span class="fc" id="L88">                newHistory.add(state);</span>
+
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                if (game.getBoard().getGrids().get(xdes).get(ydes).getLevel() == MAXHEIGHT) {</span>
+<span class="fc" id="L91">                    Dome dome = new Dome();</span>
+<span class="fc" id="L92">                    game.getBoard().getGrids().get(xdes).get(ydes).addDome(dome);</span>
+<span class="fc" id="L93">                } else {</span>
+<span class="fc" id="L94">                    Block block = new Block(game.getBoard().getGrids().get(xdes).get(ydes).getLevel() + 1);</span>
+<span class="fc" id="L95">                    game.getBoard().getGrids().get(xdes).get(ydes).addBlock(block);</span>
+                }
+
+<span class="fc bfc" id="L98" title="All 2 branches covered.">                Player nextPlayer = game.getPlayer() == Player.PLAYER0 ? Player.PLAYER1 : Player.PLAYER0;</span>
+<span class="fc" id="L99">                return new Game(game.getBoard(), nextPlayer, newHistory, game.getMoveworker(), game.getMove(),game.getGod());</span>
+            }
+        }
+
+<span class="fc" id="L103">        return game;</span>
+    }
+
+
+    public Player checkWin(Game game){
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (game.getBoard().getGrids(this.getX(),this.getY()).getLevel() == 3){</span>
+<span class="fc" id="L109">            return this.parent;</span>
+        }
+<span class="fc" id="L111">        return null;</span>
+    }
+
+    public boolean checkmove (Game game, int x,int y){
+<span class="fc" id="L115">        int xsrc = this.getX();</span>
+<span class="fc" id="L116">        int ysrc = this.getY();</span>
+
+<span class="fc" id="L118">        int oldlevel = game.getBoard().getGrids().get(xsrc).get(ysrc).getLevel();</span>
+<span class="fc" id="L119">        int newlevel = game.getBoard().getGrids().get(x).get(y).getLevel();</span>
+
+<span class="pc bpc" id="L121" title="4 of 8 branches missed.">        if (x &lt;= 4 &amp;&amp; x &gt;= 0 &amp;&amp; y &lt;= 4 &amp;&amp; y &gt;= 0 &amp;&amp;</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">                game.getBoard().getGrids().get(x).get(y).getWorker().size() == 0) {</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">            if (newlevel &lt; MAXHEIGHT + 1) {</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">                if (newlevel &lt;= oldlevel + 1) {</span>
+<span class="fc" id="L125">                    return true;</span>
+                }
+            }
+        }
+<span class="fc" id="L129">        return false;</span>
+    }
+
+    public boolean checkbuild (Game game, int x, int y){
+<span class="pc bpc" id="L133" title="4 of 8 branches missed.">        if (x &lt;= 4 &amp;&amp; x &gt;= 0 &amp;&amp; y &lt;= 4 &amp;&amp; y &gt;= 0 &amp;&amp;</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">                game.getBoard().getGrids().get(x).get(y).getWorker().size() == 0) {</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            if (game.getBoard().getGrids().get(x).get(y).getLevel() &lt;= MAXHEIGHT) {</span>
+<span class="fc" id="L136">                return true;</span>
+            }
+        }
+<span class="fc" id="L139">        return false;</span>
+    }
+
+    public void setBordermove (Game game, int x, int y) {
+        int subx, suby;
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        for (int i = 1; i &lt; 9; i++) {</span>
+<span class="nc" id="L145">            subx = x + game.parsingdes(i).get(0);</span>
+<span class="nc" id="L146">            suby = y + game.parsingdes(i).get(1);</span>
+<span class="nc bnc" id="L147" title="All 10 branches missed.">            if (subx&gt;=0 &amp;&amp; subx &lt;=4 &amp;&amp; suby &gt;=0 &amp;&amp; suby &lt;=4 &amp;&amp; this.checkmove(game,subx,suby) == true){</span>
+<span class="nc" id="L148">                game.getBoard().getGrids(subx,suby).setBorder(true);</span>
+            }
+        }
+<span class="nc" id="L151">    }</span>
+
+    public void setBorderbuild (Game game, int x, int y){
+        int subx, suby;
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        for (int i = 1; i &lt; 9; i++) {</span>
+<span class="nc" id="L156">            subx = x + game.parsingdes(i).get(0);</span>
+<span class="nc" id="L157">            suby = y + game.parsingdes(i).get(1);</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">            if (this.checkbuild(game,subx,suby) == true){</span>
+<span class="nc" id="L159">                game.getBoard().getGrids(subx,suby).setBorder(true);</span>
+            }
+        }
+
+<span class="nc" id="L163">    }</span>
+
+    public void dosomething(Game game){
+<span class="nc" id="L166">        game.cleanboarder();</span>
+<span class="nc" id="L167">        return ;</span>
+    }
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

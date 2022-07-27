@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tower.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">token</a> &gt; <span class="el_source">Tower.java</span></div><h1>Tower.java</h1><pre class="source lang-java linenums">package token;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Tower {
+<span class="fc" id="L7">    private List&lt;Token&gt; items = new ArrayList&lt;&gt;();</span>
+
+    /**
+     * Get the items {@link Token} in the tower.
+     *
+     * @return {@link Token} Return the list of token.
+     */
+    public List&lt;Token&gt; getItems() {
+<span class="fc" id="L15">        return items;</span>
+    }
+
+<span class="fc" id="L18">    public Tower(List&lt;Token&gt; token1){</span>
+<span class="fc" id="L19">        this.items = token1;</span>
+<span class="fc" id="L20">    }</span>
+
+<span class="fc" id="L22">    public Tower(){</span>
+<span class="fc" id="L23">        this.items = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">    }</span>
+
+    public Tower clone(){
+
+<span class="fc" id="L28">        List&lt;Token&gt; token = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        for (Token subtoken: this.items){</span>
+<span class="fc" id="L30">            token.add(subtoken);</span>
+<span class="fc" id="L31">        }</span>
+<span class="fc" id="L32">        Tower t = new Tower(token);</span>
+<span class="fc" id="L33">        return t;</span>
+
+    }
+
+    /**
+     * Add the token to the items.
+     *
+     * @param token The block or dome class.
+     */
+    public void add(Token token){
+<span class="fc" id="L43">        items.add(token);</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Get the level of the tower which is the size of list items.
+     *
+     * @return The size of the items.
+     */
+
+    public int getLevel(){
+<span class="fc" id="L53">        return items.size();</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

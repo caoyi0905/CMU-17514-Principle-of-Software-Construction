@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">game</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package game;
+
+import gameboard.Grid;
+import gameboard.IslandBoard;
+import token.Worker;
+import token.Pan;
+import token.Demeter;
+import token.Minotaur;
+import token.Apollo;
+
+//import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Game {
+    private final IslandBoard board;
+    private final Player player;
+    private final List&lt;Game&gt; history;
+    private static final int MAXHEIGHT = 3;
+<span class="pc" id="L21">    private  Worker moveworker = null;</span>
+<span class="pc" id="L22">    private  Worker buildworker = null;</span>
+<span class="pc" id="L23">    private int move = 0;</span>
+<span class="pc" id="L24">    private int build = 0;</span>
+<span class="pc" id="L25">    private String god = &quot;&quot;;</span>
+
+    public void setMove(int move) {
+<span class="nc" id="L28">        this.move = move;</span>
+<span class="nc" id="L29">    }</span>
+
+    public int getBuild() {
+<span class="nc" id="L32">        return build;</span>
+    }
+
+    public void setBuild(int build) {
+<span class="nc" id="L36">        this.build = build;</span>
+<span class="nc" id="L37">    }</span>
+
+    public String getGod() {
+<span class="fc" id="L40">        return god;</span>
+    }
+
+    public void setGod(String godname){
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (this.god == &quot;&quot;){</span>
+<span class="nc" id="L45">            this.god = godname;</span>
+        }else {
+
+<span class="nc" id="L48">            this.god = this.god.concat(&quot; &quot;).concat(godname);</span>
+        }
+
+<span class="nc" id="L51">    }</span>
+
+    public Worker getBuildworker() {
+<span class="nc" id="L54">        return buildworker;</span>
+    }
+
+    public Worker getMoveworker() {
+<span class="fc" id="L58">        return moveworker;</span>
+    }
+
+    public void setMoveworker(Worker worker){
+<span class="nc" id="L62">        this.moveworker = worker;</span>
+<span class="nc" id="L63">    }</span>
+
+    public void setBuildworker(Worker worker){
+<span class="nc" id="L66">        this.buildworker = worker;</span>
+<span class="nc" id="L67">    }</span>
+
+
+    public Game() {
+<span class="fc" id="L71">        this(new IslandBoard(), Player.PLAYER0);</span>
+<span class="fc" id="L72">    }</span>
+
+<span class="fc" id="L74">    public Game(IslandBoard board, Player nextPlayer) {</span>
+<span class="fc" id="L75">        List&lt;Game&gt; newhistory = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L76">        this.board = board;</span>
+<span class="fc" id="L77">        this.player = nextPlayer;</span>
+<span class="fc" id="L78">        this.history = newhistory;</span>
+
+<span class="fc" id="L80">    }</span>
+
+<span class="nc" id="L82">    public Game(IslandBoard board, Player nextPlayer, List&lt;Game&gt; history) {</span>
+<span class="nc" id="L83">        this.board = board;</span>
+<span class="nc" id="L84">        this.player = nextPlayer;</span>
+<span class="nc" id="L85">        this.history = history;</span>
+<span class="nc" id="L86">    }</span>
+
+<span class="fc" id="L88">    public Game(IslandBoard board, Player nextPlayer, List&lt;Game&gt; history, Worker moveworker, int move, String god) {</span>
+<span class="fc" id="L89">        this.board = board;</span>
+<span class="fc" id="L90">        this.player = nextPlayer;</span>
+<span class="fc" id="L91">        this.history = history;</span>
+<span class="fc" id="L92">        this.move = move;</span>
+<span class="fc" id="L93">        this.moveworker = moveworker;</span>
+<span class="fc" id="L94">        this.god = god;</span>
+<span class="fc" id="L95">    }</span>
+
+    public Worker buildgod (String name){
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (name == null){</span>
+<span class="nc" id="L99">            return new Worker();</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        }else if (name.equals(&quot;Pan&quot;)){</span>
+<span class="nc" id="L101">            return new Pan();</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        }else if (name.equals(&quot;Demeter&quot;)){</span>
+
+<span class="nc" id="L104">            return new Demeter();</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        }else if (name.equals(&quot;Minotaur&quot;)){</span>
+<span class="nc" id="L106">            return new Minotaur();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        }else if (name.equals(&quot;Apollo&quot;)){</span>
+<span class="nc" id="L108">            return new Apollo();</span>
+        }else{
+<span class="nc" id="L110">            return new Worker();</span>
+        }
+    }
+
+    public List&lt;List&lt;Grid&gt;&gt; gridsclone(List&lt;List&lt;Grid&gt;&gt; grids){
+<span class="fc" id="L115">        List&lt;List&lt;Grid&gt;&gt; output = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (List&lt;Grid&gt; sub: grids){</span>
+<span class="fc" id="L117">            List&lt;Grid&gt; subcopy = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">            for (Grid subsub: sub){</span>
+<span class="fc" id="L119">                subcopy.add(subsub.clone());</span>
+<span class="fc" id="L120">            }</span>
+<span class="fc" id="L121">            output.add(subcopy);</span>
+<span class="fc" id="L122">        }</span>
+<span class="fc" id="L123">        return output;</span>
+    }
+
+    public List&lt;List&lt;Grid&gt;&gt; gridscloneformove(List&lt;List&lt;Grid&gt;&gt; grids){
+<span class="fc" id="L127">        List&lt;List&lt;Grid&gt;&gt; output = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        for (List&lt;Grid&gt; sub: grids){</span>
+<span class="fc" id="L129">            List&lt;Grid&gt; subcopy = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            for (Grid subsub: sub){</span>
+<span class="fc" id="L131">                subcopy.add(subsub.cloneformove());</span>
+<span class="fc" id="L132">            }</span>
+<span class="fc" id="L133">            output.add(subcopy);</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">        return output;</span>
+    }
+
+
+
+    public IslandBoard getBoard() {
+<span class="fc" id="L141">        return board;</span>
+    }
+
+    public Player getPlayer() {
+<span class="fc" id="L145">        return player;</span>
+    }
+
+    public List&lt;Game&gt; getHistory() {
+<span class="fc" id="L149">        return history;</span>
+    }
+
+    public int getMove() {
+<span class="fc" id="L153">        return move;</span>
+    }
+
+
+    public Game undo() {
+<span class="nc" id="L158">        int s = this.history.size();</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (s == 0) return this;</span>
+
+<span class="nc" id="L161">        Game oldGame = this.history.get(s-1);</span>
+
+<span class="nc" id="L163">        this.history.remove(s-1);</span>
+<span class="nc" id="L164">        return new Game(oldGame.board, oldGame.player, oldGame.history, oldGame.getMoveworker(), oldGame.getMove(), oldGame.getGod());</span>
+    }
+
+    public Game setworkers( int x, int y, int turn){
+
+<span class="fc" id="L169">        String[] godnamelist = this.god.split(&quot; &quot;);</span>
+<span class="fc" id="L170">        ArrayList&lt;String&gt; godname1 = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        for (String e : godnamelist){</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">            if (!godname1.contains(e)){</span>
+<span class="fc" id="L173">                godname1.add(e);</span>
+            }
+        }
+
+<span class="fc" id="L177">        List&lt;Game&gt; newHistory = new ArrayList&lt;&gt;(this.history);</span>
+<span class="fc" id="L178">        Game state = new Game(new IslandBoard(this.gridsclone(this.getBoard().getGrids())),</span>
+<span class="fc" id="L179">                this.getPlayer(),this.history, this.getMoveworker(),this.move,this.getGod());</span>
+<span class="fc" id="L180">        newHistory.add(state);</span>
+
+<span class="fc" id="L182">        Worker worker = new Worker();</span>
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">        if (this.god == &quot;&quot;){</span>
+        }else{
+<span class="nc" id="L185">            worker = buildgod(godname1.get(this.player.value));</span>
+        }
+
+<span class="fc" id="L188">        worker.setParent(this.player);</span>
+<span class="fc" id="L189">        worker.setPosition(x,y);</span>
+
+<span class="fc" id="L191">        this.board.getGrids(x,y).moveWorker(worker);</span>
+
+<span class="pc bpc" id="L193" title="1 of 4 branches missed.">        if (turn ==1 || turn == 3){</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">            Player nextPlayer = this.player == Player.PLAYER0 ? Player.PLAYER1 : Player.PLAYER0;</span>
+<span class="fc" id="L195">            return new Game(this.board, nextPlayer, newHistory, this.getMoveworker(),this.move,this.getGod());</span>
+        }else{
+<span class="fc" id="L197">            return new Game(this.board, this.player, newHistory, this.getMoveworker(),this.move,this.getGod());</span>
+        }
+    }
+
+    public int countworker(){
+<span class="fc" id="L202">        int count = 0 ;</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">        for (List&lt;Grid&gt; gridlist : this.board.getGrids()){</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">            for (Grid grid: gridlist){</span>
+<span class="fc" id="L205">                count += grid.getWorker().size();</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">                if (grid.getWorker().size() &gt; 0){</span>
+                }
+<span class="fc" id="L208">            }</span>
+<span class="fc" id="L209">        }</span>
+<span class="fc" id="L210">        return count;</span>
+    }
+
+
+
+    public Player getWinner(){
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        for (List&lt;Grid&gt; sub : this.getBoard().getGrids()){</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">            for (Grid subsub: sub){</span>
+<span class="nc bnc" id="L218" title="All 4 branches missed.">                if (subsub.getWorker().size()&gt;0 &amp;&amp; subsub.getWorker().get(0).checkWin(this) != null){</span>
+<span class="nc" id="L219">                    return subsub.getWorker().get(0).checkWin(this);</span>
+                }
+<span class="nc" id="L221">            }</span>
+<span class="nc" id="L222">        }</span>
+<span class="nc" id="L223">        return null;</span>
+    }
+
+    public void cleanboarder(){
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        for (int i = 0; i &lt; 5; i++){</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">            for (int j = 0; j &lt; 5; j++){</span>
+<span class="nc" id="L229">                this.getBoard().getGrids(i,j).setBorder(false);</span>
+            }
+        }
+<span class="nc" id="L232">    }</span>
+
+    /**
+     * Parsing the input des to the {@link Integer} destination coordinates.
+     *
+     * @param des The input parameter which refer the coordinate of a grid.
+     * @return The List of integer which contains two values: the x coordinate and the y coordinate.
+     */
+
+    public List&lt;Integer&gt; parsingdes(int des) {
+        int x;
+        int y;
+<span class="nc" id="L244">        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">        if (des &lt;= MAXHEIGHT) {</span>
+<span class="nc" id="L246">            y = -1;</span>
+<span class="nc bnc" id="L247" title="All 4 branches missed.">        } else if (des &gt; (MAXHEIGHT+1) &amp;&amp; des &lt; (MAXHEIGHT*MAXHEIGHT-1)) {</span>
+<span class="nc" id="L248">            y = 1;</span>
+        } else {
+<span class="nc" id="L250">            y = 0;</span>
+        }
+<span class="nc bnc" id="L252" title="All 4 branches missed.">        if (des == MAXHEIGHT-1 || des == 2*MAXHEIGHT) {</span>
+<span class="nc" id="L253">            x = 0;</span>
+<span class="nc bnc" id="L254" title="All 4 branches missed.">        } else if (des &gt; MAXHEIGHT-1 &amp;&amp; des &lt; 2*MAXHEIGHT) {</span>
+<span class="nc" id="L255">            x = 1;</span>
+        } else {
+<span class="nc" id="L257">            x = -1;</span>
+        }
+<span class="nc" id="L259">        result.add(y);</span>
+<span class="nc" id="L260">        result.add(x);</span>
+<span class="nc" id="L261">        return result;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

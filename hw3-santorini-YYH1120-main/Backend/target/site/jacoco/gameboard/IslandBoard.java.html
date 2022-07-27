@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IslandBoard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">gameboard</a> &gt; <span class="el_source">IslandBoard.java</span></div><h1>IslandBoard.java</h1><pre class="source lang-java linenums">package gameboard;
+
+import token.Block;
+import token.Dome;
+import token.Token;
+import token.Tower;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class IslandBoard {
+    private final List&lt;List&lt;Grid&gt;&gt; grids;
+    private static final int MAXWIDTH = 7;
+    private static final int MAXHEIGHT = 3;
+
+    /**
+     * Initializes a new islandboard which is the main body of game board.
+     */
+
+
+<span class="fc" id="L22">    public IslandBoard() {</span>
+<span class="fc" id="L23">        List&lt;List&lt;Grid&gt;&gt; grid = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        for (int i = 0; i &lt; 5; i++){</span>
+<span class="fc" id="L25">            List&lt;Grid&gt; sub = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">            for (int j = 0; j &lt; 5; j++){</span>
+<span class="fc" id="L27">                Grid subsub = new Grid(i,j);</span>
+<span class="fc" id="L28">                sub.add(subsub);</span>
+            }
+<span class="fc" id="L30">            grid.add(sub);</span>
+        }
+<span class="fc" id="L32">        this.grids = grid;</span>
+<span class="fc" id="L33">        System.out.println(this.grids);</span>
+
+        //Hint for user
+<span class="fc" id="L36">        System.out.println(&quot;The index of direction is shown as follows:&quot;);</span>
+<span class="fc" id="L37">        System.out.println(&quot;1  2  3&quot;);</span>
+<span class="fc" id="L38">        System.out.println(&quot;8  *  4&quot;);</span>
+<span class="fc" id="L39">        System.out.println(&quot;7  6  5&quot;);</span>
+<span class="fc" id="L40">        System.out.println();</span>
+<span class="fc" id="L41">    }</span>
+
+<span class="fc" id="L43">    public IslandBoard(List&lt;List&lt;Grid&gt;&gt; grids){</span>
+<span class="fc" id="L44">        this.grids=grids;</span>
+<span class="fc" id="L45">    }</span>
+
+
+
+    /**
+     * Get the nested list of grids in this island board class.
+     *
+     * @return The nested list contains all the grids in the game board.
+     */
+    public List&lt;List&lt;Grid&gt;&gt; getGrids() {
+<span class="fc" id="L55">        return grids;</span>
+    }
+
+    public Grid getGrids(int x,int y){
+<span class="fc" id="L59">        return grids.get(x).get(y);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

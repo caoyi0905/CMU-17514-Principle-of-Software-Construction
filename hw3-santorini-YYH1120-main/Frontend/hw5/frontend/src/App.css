@@ -1,0 +1,248 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * .9);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+}
+
+.god-board {
+  width: 80vw;
+  height: 80vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-top: auto;
+  
+  grid-template-rows: repeat(5, auto)
+
+}
+
+.god-message {
+  display: none;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(27, 48, 167, 0.8);
+
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 4rem;
+  flex-direction: column;
+  
+}
+
+.god-message button {
+  width: 500px;
+  height: 80px;
+  font-size: 1.6rem;
+  background-color: white;
+  border: 1px solid black;
+  /* padding: .25em .5em; */
+  cursor: pointer;
+  position: relative;
+
+}
+
+.god-message button:hover{
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+
+.god-message button:focus{
+  background-color: black;
+  color: white;
+  border-color: white;
+  cursor: none;
+}
+
+.god-message.show {
+  display: flex;
+}
+
+
+
+.board {
+  width: 80vw;
+  height: 80vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-top: auto;
+
+  grid-template-columns: repeat(5, auto)
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 3.5px solid rgb(209, 34, 34);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+
+  font-size: 60px;
+  color: red;
+  text-align: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+}
+
+
+
+#handlebars {
+  visibility: hidden;
+  display: none;
+}
+
+#bottombar {
+  height: 5vh;
+  position: relative;
+}
+
+#bottombar button {
+  width: 760px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  float: left;
+  font-size: 2vw
+}
+
+.cell.playable { background-color: grey;}
+
+.cell.x{
+  border-top: 10px solid rgb(30, 27, 226);
+  border-bottom: 10px solid rgb(30, 27, 226);
+  border-left: 10px solid rgb(30, 27, 226);
+  border-right: 10px solid rgb(30, 27, 226);
+  padding-left: 10px;
+  background-color: white;
+
+}
+
+.cell.one{
+  border-top: 5px solid orange;
+  border-bottom: 5px solid orange;
+  border-left: 5px solid orange;
+  border-right: 5px solid orange;
+  
+
+  background-color: white;
+
+}
+
+.cell.two{
+  border-top: 15px solid orange;
+  border-bottom: 15px solid orange;
+  border-left: 15px solid orange;
+  border-right: 15px solid orange;
+
+  background-color: white;
+
+}
+
+.cell.three{
+  border-top: 25px solid orange;
+  border-bottom: 25px solid orange;
+  border-left: 25px solid orange;
+  border-right: 25px solid orange;
+
+  background-color: white;
+
+}
+
+.cell.dome{
+
+  background-color: orange;
+
+}
+
+
+
+#instructions {
+  height: 3.5vh;
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+#godinfo {
+  height: 3.5vh;
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+
+/* .cell.two::before,
+.cell.two::after{
+  border-top: 5px solid orange;
+  border-bottom: 5px solid orange;
+  border-left: 5px solid orange;
+  border-right: 5px solid orange;
+
+  background-color: white;
+  content: '';
+  position: absolute;
+  width: calc(var(--cell-size));
+  height: calc(var(--cell-size));
+
+  font-size: 40px;
+  text-align: center;
+  font-family: cursive;
+}
+
+
+.cell.two::after
+{
+  border-top: 5px solid orange;
+  border-bottom: 5px solid orange;
+  border-left: 5px solid orange;
+  border-right: 5px solid orange;
+
+  background-color: white;
+  width: calc(var(--mark-size)*0.8);
+  height: calc(var(--mark-size)*0.8);
+
+  font-size: 40px;
+  text-align: center;
+  font-family: cursive;
+} */
+
+
+
+

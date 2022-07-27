@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pan.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">token</a> &gt; <span class="el_source">Pan.java</span></div><h1>Pan.java</h1><pre class="source lang-java linenums">package token;
+
+import game.Game;
+import game.Player;
+import gameboard.IslandBoard;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc" id="L10">public class Pan extends Worker{</span>
+<span class="nc" id="L11">    private boolean movedown = false;</span>
+    private static final int MAXHEIGHT = 3;
+
+    @Override
+    public Game moveWorker(Game game, int x, int y) {
+        int xsrc, xdes;
+        int ysrc, ydes;
+        int oldlevel, newlevel;
+
+<span class="nc" id="L20">        xsrc = this.getX();</span>
+<span class="nc" id="L21">        ysrc = this.getY();</span>
+
+<span class="nc" id="L23">        xdes = x;</span>
+<span class="nc" id="L24">        ydes = y;</span>
+<span class="nc" id="L25">        oldlevel = game.getBoard().getGrids().get(xsrc).get(ysrc).getLevel();</span>
+<span class="nc" id="L26">        newlevel = game.getBoard().getGrids().get(xdes).get(ydes).getLevel();</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (oldlevel - newlevel &gt;=2){</span>
+<span class="nc" id="L28">            this.movedown = true;</span>
+        }
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (game.getBoard().getGrids().get(xdes).get(ydes).getWorker().size() == 0) {</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            if (newlevel &lt; MAXHEIGHT + 1) {</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">                if (newlevel &lt;= oldlevel + 1) {</span>
+
+<span class="nc" id="L34">                    List&lt;Game&gt; newHistory = new ArrayList&lt;&gt;(game.getHistory());</span>
+<span class="nc" id="L35">                    Game state = new Game(new IslandBoard(game.gridscloneformove(game.getBoard().getGrids())),game.getPlayer(),game.getHistory(),null,game.getMove(), game.getGod());</span>
+<span class="nc" id="L36">                    newHistory.add(state);</span>
+
+<span class="nc" id="L38">                    game.getBoard().getGrids().get(xsrc).get(ysrc).removeWorker();</span>
+<span class="nc" id="L39">                    game.getBoard().getGrids().get(xdes).get(ydes).moveWorker(this);</span>
+<span class="nc" id="L40">                    this.setPosition(xdes, ydes);</span>
+<span class="nc" id="L41">                    return new Game(game.getBoard(), game.getPlayer(), newHistory, this, 1, game.getGod());</span>
+                }
+            }
+        }
+
+<span class="nc" id="L46">        return game;</span>
+    }
+
+    @Override
+    public Player checkWin(Game game){
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (game.getBoard().getGrids(this.getX(),this.getY()).getLevel() == 3){</span>
+<span class="nc" id="L52">            return this.getParent();</span>
+        }
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (this.movedown == true){</span>
+<span class="nc" id="L55">            return this.getParent();</span>
+        }
+<span class="nc" id="L57">        return null;</span>
+    }
+
+    @Override
+    public Pan clone(){
+<span class="nc" id="L62">        System.out.println(&quot;call pan clone&quot;);</span>
+<span class="nc" id="L63">        Pan p = new Pan();</span>
+<span class="nc" id="L64">        p.setPosition(this.getX(), this.getY());</span>
+<span class="nc" id="L65">        p.setParent(this.getParent());</span>
+<span class="nc" id="L66">        p.movedown = this.movedown;</span>
+
+<span class="nc" id="L68">        return p;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

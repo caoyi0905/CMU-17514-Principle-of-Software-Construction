@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Grid.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">gameboard</a> &gt; <span class="el_source">Grid.java</span></div><h1>Grid.java</h1><pre class="source lang-java linenums">package gameboard;
+
+import game.Game;
+import token.Token;
+import token.Block;
+import token.Dome;
+import token.Tower;
+import token.Worker;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Grid {
+    private final int x;
+    private final int y;
+    private static final int MAXHEIGHT = 3;
+<span class="fc" id="L17">    private List&lt;Worker&gt; workers = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">    private Tower tower = new Tower();</span>
+<span class="fc" id="L19">    private boolean border = false;</span>
+
+    /**
+     * Initializes a new grid instance with coordinates x and y.
+     *
+     * @param x The horizontal coordinate of the grid in the game board.
+     * @param y The longitudinal coordinate of the grid in the game board.
+     */
+<span class="fc" id="L27">    public Grid(int x, int y) {</span>
+<span class="fc" id="L28">        this.x = x;</span>
+<span class="fc" id="L29">        this.y = y;</span>
+<span class="fc" id="L30">    }</span>
+
+    public boolean getBorder (){
+<span class="nc" id="L33">        return this.border;</span>
+    }
+
+    public void setBorder(boolean boo){
+<span class="nc" id="L37">        this.border = boo;</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Get the level of the tower in this grid.
+     *
+     * @return The level of the tower which is built in this grid.
+     */
+    public int getLevel() {
+<span class="fc" id="L46">        return tower.getLevel();</span>
+    }
+
+    /**
+     * Get the list of Worker in the grid.
+     *
+     * @return The {@link Worker} workers which occupy this grid.
+     */
+    public List&lt;Worker&gt; getWorker() {
+<span class="fc" id="L55">        return this.workers;</span>
+    }
+
+    public Grid clone(){
+<span class="fc" id="L59">        Grid g = new Grid(this.x,this.y);</span>
+<span class="fc" id="L60">        List&lt;Worker&gt; w = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (Worker subworker : this.getWorker()){</span>
+<span class="fc" id="L62">            w.add(subworker.clone());</span>
+<span class="fc" id="L63">        }</span>
+<span class="fc" id="L64">        Tower t = new Tower();</span>
+<span class="fc" id="L65">        t = this.tower.clone();</span>
+<span class="fc" id="L66">        g.workers = w;</span>
+<span class="fc" id="L67">        g.tower = t;</span>
+<span class="fc" id="L68">        g.border = this.border;</span>
+<span class="fc" id="L69">        return g;</span>
+    }
+
+    public Grid cloneformove(){
+<span class="fc" id="L73">        Grid g = new Grid(this.x,this.y);</span>
+<span class="fc" id="L74">        List&lt;Worker&gt; w = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (Worker subworker : this.getWorker()){</span>
+<span class="fc" id="L76">            w.add(subworker.clone());</span>
+<span class="fc" id="L77">        }</span>
+<span class="fc" id="L78">        Tower t = new Tower();</span>
+<span class="fc" id="L79">        t = this.tower.clone();</span>
+<span class="fc" id="L80">        g.workers = w;</span>
+<span class="fc" id="L81">        g.tower = t;</span>
+<span class="fc" id="L82">        g.border = false;</span>
+
+<span class="fc" id="L84">        return g;</span>
+    }
+
+
+
+    /**
+     * Get the tower in this grid.
+     *
+     * @return The tower placed in this grid.
+     */
+    public Tower getTower() {
+<span class="fc" id="L95">        return this.tower;</span>
+    }
+
+
+    /**
+     * Add the block to the tower in this grid.
+     *
+     * @param block The object to add and check.
+     * @return {@code true} if the block meets the requirments.
+     */
+    public boolean addBlock(Block block) {
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (block.getLevel() == this.tower.getLevel() + 1) {</span>
+<span class="fc" id="L107">            this.tower.add(block);</span>
+<span class="fc" id="L108">            return true;</span>
+        } else {
+<span class="fc" id="L110">            System.out.println(&quot;Wrong operation of adding block!&quot;);</span>
+<span class="fc" id="L111">            return false;</span>
+        }
+    }
+
+    /**
+     * Set the block to this grid.
+     *
+     * @param block The object to add on the tower in this grid.
+     */
+    public void setBlock(Block block) {
+<span class="nc" id="L121">        this.tower = new Tower();</span>
+<span class="nc" id="L122">        this.tower.add(block);</span>
+<span class="nc" id="L123">    }</span>
+
+    /**
+     * Set the tower in this grid.
+     *
+     * @param tower The object which contains tokens to add in this grid.
+     */
+    public void setTower(Tower tower) {
+<span class="nc" id="L131">        this.tower = tower;</span>
+<span class="nc" id="L132">    }</span>
+
+    /**
+     * Add the dome on the tower in this grid.
+     *
+     * @param dome The object which place on the top of the tower with 3 level.
+     * @return {@code true} if the tower level is 3.
+     */
+    public boolean addDome(Dome dome) {
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        if (this.tower.getLevel() == MAXHEIGHT) {</span>
+<span class="fc" id="L142">            this.tower.add(dome);</span>
+<span class="fc" id="L143">            return true;</span>
+        } else {
+<span class="fc" id="L145">            System.out.println(&quot;Wrong operation of adding dome!&quot;);</span>
+<span class="fc" id="L146">            return false;</span>
+        }
+    }
+
+    /**
+     * Move worker form old grid to this grid.
+     *
+     * @param worker The token to put in this grid.
+     * @return {@code true} if this grid has not been occupied by another worker and the level is meets the requirements.
+     */
+    public boolean moveWorker(Worker worker) {
+<span class="pc bpc" id="L157" title="1 of 4 branches missed.">        if (this.workers.size() == 0 &amp;&amp; this.tower.getLevel() &lt; MAXHEIGHT+1) {</span>
+<span class="fc" id="L158">            this.workers.add(worker);</span>
+<span class="fc" id="L159">            return true;</span>
+        } else {
+<span class="fc" id="L161">            System.out.println(&quot;Illegal action of moving worker!&quot;);</span>
+<span class="fc" id="L162">            return false;</span>
+        }
+    }
+
+    /**
+     * Remove the worker in this grid.
+     *
+     */
+    public void removeWorker() {
+
+<span class="fc" id="L172">        this.workers = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L174">    }</span>
+
+    /**
+     * Get the x coordinate of this grid.
+     *
+     * @return The horizontal coordinate of the grid.
+     */
+
+
+    public int getX(){
+<span class="nc" id="L184">        return this.x;</span>
+    }
+
+    /**
+     * Get the y coordinate of this grid.
+     *
+     * @return The longitudinal coordinate of the grid in the game board.
+     */
+    public int getY(){
+<span class="nc" id="L193">        return this.y;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

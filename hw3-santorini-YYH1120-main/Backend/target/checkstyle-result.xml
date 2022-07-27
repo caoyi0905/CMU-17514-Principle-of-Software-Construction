@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.45">
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\App.java">
+</file>
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\game\Game.java">
+<error line="183" column="28" severity="error" message="Must have at least one statement." source="com.puppycrawl.tools.checkstyle.checks.blocks.EmptyBlockCheck"/>
+<error line="206" column="49" severity="error" message="Must have at least one statement." source="com.puppycrawl.tools.checkstyle.checks.blocks.EmptyBlockCheck"/>
+</file>
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\game\GameState.java">
+<error line="10" column="1" severity="error" message="Class GameState should be declared as final." source="com.puppycrawl.tools.checkstyle.checks.design.FinalClassCheck"/>
+<error line="54" column="19" severity="error" message="Array brackets at illegal position." source="com.puppycrawl.tools.checkstyle.checks.ArrayTypeStyleCheck"/>
+</file>
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\game\Player.java">
+<error line="11" column="15" severity="error" message="Variable &apos;value&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="12" column="24" severity="error" message="Variable &apos;workers&apos; must be private and have accessor methods." source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+</file>
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\token\Demeter.java">
+<error line="31" severity="error" message="Line is longer than 160 characters (found 174)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="33" column="74" severity="error" message="Must have at least one statement." source="com.puppycrawl.tools.checkstyle.checks.blocks.EmptyBlockCheck"/>
+</file>
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\token\Minotaur.java">
+<error line="32" severity="error" message="Line is longer than 160 characters (found 181)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="46" severity="error" message="Line is longer than 160 characters (found 181)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+</file>
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\token\Pan.java">
+<error line="35" severity="error" message="Line is longer than 160 characters (found 181)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+</file>
+<file name="D:\CMU\17514 CMU\hw5-santorini-part2\hw3-santorini-YYH1120\Backend\src\main\java\token\Worker.java">
+<error line="61" severity="error" message="Line is longer than 160 characters (found 181)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="87" severity="error" message="Line is longer than 160 characters (found 174)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+</file>
+</checkstyle>

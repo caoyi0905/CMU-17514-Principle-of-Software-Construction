@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Token.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">token</a> &gt; <span class="el_source">Token.java</span></div><h1>Token.java</h1><pre class="source lang-java linenums">package token;
+
+<span class="fc" id="L3">public abstract class Token {</span>
+    private int x;
+    private int y;
+    private static final int MAXWIDTHFORWORKER = 5;
+
+    /**
+     * Set the position for the token, change the value of x and y with the input value.
+     *
+     * @param x
+     * @param y
+     * @return {@code true} if the coodinates of x and y is in the range of 1 to 5.
+     */
+
+    public boolean setPosition(int x, int y) {
+<span class="pc bpc" id="L17" title="3 of 8 branches missed.">        if ((x &lt; MAXWIDTHFORWORKER &amp;&amp; x &gt;= 0) &amp;&amp; (x &lt; MAXWIDTHFORWORKER &amp;&amp; x &gt;= 0)) {</span>
+<span class="fc" id="L18">            this.x = x;</span>
+<span class="fc" id="L19">            this.y = y;</span>
+<span class="fc" id="L20">            return true;</span>
+        } else {
+<span class="fc" id="L22">            System.out.println(&quot;Illegal coordinate of position!&quot;);</span>
+<span class="fc" id="L23">            return false;</span>
+        }
+    }
+
+
+
+    /**
+     * Get the value of x.
+     *
+     * @return The value of x.
+     */
+    public int getX() {
+<span class="fc" id="L35">        return this.x;</span>
+    }
+
+    /**
+     * Get the value of y.
+     *
+     * @return The value of y.
+     */
+    public int getY() {
+<span class="fc" id="L44">        return this.y;</span>
+    }
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

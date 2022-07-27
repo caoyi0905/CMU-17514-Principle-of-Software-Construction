@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Demeter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Santorini</a> &gt; <a href="index.source.html" class="el_package">token</a> &gt; <span class="el_source">Demeter.java</span></div><h1>Demeter.java</h1><pre class="source lang-java linenums">package token;
+
+import game.Game;
+import game.Player;
+import gameboard.IslandBoard;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc" id="L10">public class Demeter extends Worker{</span>
+<span class="nc" id="L11">    private int buildtimes = 0;</span>
+    private static final int MAXWIDTH = 7;
+    private static final int MAXHEIGHT = 3;
+    private int xlastbuild, ylastbuild;
+
+    @Override
+    public Game buildtoken(Game game, int x, int y) {
+<span class="nc" id="L18">        System.out.println(&quot;buildtimes = &quot; + buildtimes);</span>
+
+        int xdes, ydes,xsrc,ysrc;
+<span class="nc" id="L21">        xsrc = this.getX();</span>
+<span class="nc" id="L22">        ysrc = this.getY();</span>
+
+<span class="nc" id="L24">        xdes = x;</span>
+<span class="nc" id="L25">        ydes = y;</span>
+
+<span class="nc bnc" id="L27" title="All 8 branches missed.">        if (game.getBoard().getGrids().get(xdes).get(ydes).getWorker().size() == 0  || (this.buildtimes &gt;=1 &amp;&amp; x == this.getX() &amp;&amp; y == this.getY())) {</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">            if (game.getBoard().getGrids().get(xdes).get(ydes).getLevel() &lt;= MAXHEIGHT) {</span>
+
+<span class="nc" id="L30">                List&lt;Game&gt; newHistory = new ArrayList&lt;&gt;(game.getHistory());</span>
+<span class="nc" id="L31">                Game state = new Game(new IslandBoard(game.gridsclone(game.getBoard().getGrids())),game.getPlayer(),game.getHistory(), game.getMoveworker(), 1,game.getGod());</span>
+<span class="nc" id="L32">                newHistory.add(state);</span>
+<span class="nc bnc" id="L33" title="All 6 branches missed.">                if (xsrc == xdes &amp;&amp; ysrc == ydes &amp;&amp; this.buildtimes &gt;=1 ){</span>
+
+                }else{
+
+<span class="nc bnc" id="L37" title="All 2 branches missed.">                    if (game.getBoard().getGrids().get(xdes).get(ydes).getLevel() == MAXHEIGHT) {</span>
+<span class="nc" id="L38">                        Dome dome = new Dome();</span>
+<span class="nc" id="L39">                        game.getBoard().getGrids().get(xdes).get(ydes).addDome(dome);</span>
+<span class="nc" id="L40">                    } else {</span>
+<span class="nc" id="L41">                        Block block = new Block(game.getBoard().getGrids().get(xdes).get(ydes).getLevel() + 1);</span>
+<span class="nc" id="L42">                        game.getBoard().getGrids().get(xdes).get(ydes).addBlock(block);</span>
+                    }
+                }
+
+<span class="nc" id="L46">                this.buildtimes += 1;</span>
+<span class="nc" id="L47">                this.xlastbuild = x;</span>
+<span class="nc" id="L48">                this.ylastbuild = y;</span>
+<span class="nc" id="L49">                Player nextPlayer = game.getPlayer();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                if (this.buildtimes &gt; 1){</span>
+
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                    nextPlayer = game.getPlayer() == Player.PLAYER0 ? Player.PLAYER1 : Player.PLAYER0;</span>
+                }
+
+<span class="nc" id="L55">                return new Game(game.getBoard(), nextPlayer, newHistory, this, game.getMove(),game.getGod());</span>
+            }
+        }
+
+<span class="nc" id="L59">        return game;</span>
+    }
+
+    @Override
+    public boolean checkbuild (Game game, int x, int y){
+<span class="nc bnc" id="L64" title="All 8 branches missed.">        if (x &lt;= 4 &amp;&amp; x &gt;= 0 &amp;&amp; y &lt;= 4 &amp;&amp; y &gt;= 0 &amp;&amp;</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                game.getBoard().getGrids().get(x).get(y).getWorker().size() == 0) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            if (game.getBoard().getGrids().get(x).get(y).getLevel() &lt;= MAXHEIGHT) {</span>
+<span class="nc" id="L67">                return true;</span>
+            }
+        }
+
+<span class="nc" id="L71">        return false;</span>
+    }
+
+    @Override
+    public void dosomething(Game game){
+
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (this.buildtimes==1){</span>
+<span class="nc" id="L78">            game.setMove(1);</span>
+<span class="nc" id="L79">            game.getBoard().getGrids(xlastbuild,ylastbuild).setBorder(false);</span>
+<span class="nc" id="L80">            game.getBoard().getGrids(this.getX(),this.getY()).setBorder(true);</span>
+        }else{
+<span class="nc" id="L82">            System.out.println(&quot;clean the boarder!&quot;);</span>
+<span class="nc" id="L83">            game.setMove(0);</span>
+<span class="nc" id="L84">            this.buildtimes = 0;</span>
+<span class="nc" id="L85">            game.cleanboarder();</span>
+        }
+<span class="nc" id="L87">    }</span>
+
+    @Override
+    public Demeter clone(){
+<span class="nc" id="L91">        System.out.println(&quot;call demeter clone&quot;);</span>
+<span class="nc" id="L92">        Demeter d = new Demeter();</span>
+<span class="nc" id="L93">        d.setPosition(this.getX(), this.getY());</span>
+<span class="nc" id="L94">        d.setParent(this.getParent());</span>
+<span class="nc" id="L95">        d.buildtimes = this.buildtimes;</span>
+<span class="nc" id="L96">        d.xlastbuild = this.xlastbuild;</span>
+<span class="nc" id="L97">        d.ylastbuild = this.ylastbuild;</span>
+<span class="nc" id="L98">        return d;</span>
+    }
+
+    public int getBuildtimes() {
+<span class="nc" id="L102">        return buildtimes;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
